@@ -1,4 +1,10 @@
 # AgendaTP-2020-06
 ## Dependencias
 
-*   mysqlclient
+*   mysql
+
+## Banco de dados
+Use o arquivo "dump.sql" para gerar o banco de dados:
+
+No terminal digite o comando:
+mysql -u<usuário> -p<senha> << dump.sql
