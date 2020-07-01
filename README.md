@@ -7,4 +7,7 @@
 Use o arquivo "dump.sql" para gerar o banco de dados:
 
 No terminal digite o comando:  
-"mysql -u<usuário> -p<senha> << dump.sql"
+mysql -uusuário -psenha << dump.sql  
+
+Exemplo:  
+mysql -uroot -p1234 << dump.sql
