@@ -22,6 +22,7 @@ void exibeMenu();
 void desconectar();
 void verCompromissos();
 void mostrarErroDoMysql();
+void removerCompromisso();
 void adicionarCompromisso();
 
 /////////////////////////////
@@ -72,8 +73,7 @@ int main(int argc, char **argv) {
 				adicionarCompromisso();
 				break;
 			case REMOVER_COMPROMISSO:
-				// TODO implementar
-				std::cout << "Falta implementar." << std::endl;
+				removerCompromisso();
 				break;
 			case MOSTRAR_COMPROMISSO:
 				verCompromissos();
@@ -89,13 +89,38 @@ int main(int argc, char **argv) {
 		// Exibe o menu novamente
 		if (continuarExecutando) {
 			exibeMenu();
-
 		}
 	}
 
 	std::cout << "Saindo... Até a próxima!" << std::endl;
 	desconectar();
 	return 0;
+}
+
+void removerCompromisso() {
+	std::cout << "Escolha um código de compromisso para remover:" << std::endl;
+	verCompromissos();
+	std::cout << "Código:"
+
+	int codCompromisso;
+	std::cin >> codCompromisso;
+
+	// Monta a query
+	std::string sql = "delete from Compromisso where cod=" + std::to_string(codCompromisso);
+
+	// Executa a query
+	int statusDeExecucao = mysql_query(connexao, sql.data());
+
+	// Verifica se deu tudo certo
+	if (statusDeExecucao == 0) {
+		// Deu certo!
+		std::cout << "Compromisso apagado!" << std::endl;
+	} else {
+		// Algo deu errado!
+		mostrarErroDoMysql(connexao);
+		std::cout << "Falha ao apagar compromisso!" << std::endl;
+	}
+
 }
 
 /**
