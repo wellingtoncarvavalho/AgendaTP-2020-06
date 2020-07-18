@@ -1,5 +1,5 @@
 ////////////////////////////////
-/// Inclusão das bibliotecas ///
+/// Inclusóo das bibliotecas ///
 ////////////////////////////////
 #include <string>
 #include <iostream>
@@ -11,7 +11,7 @@
 	#include <mysql.h>
 #else
 // Em outros sistemas, creio eu,
-// é desse outro jeito
+// ó desse outro jeito
 #include <mysql/mysql.h>
 #endif
 
@@ -21,16 +21,16 @@
 void exibeMenu();
 void desconectar();
 void verCompromissos();
-void mostrarErroDoMysql();
 void removerCompromisso();
 void adicionarCompromisso();
+void mostrarErroDoMysql(MYSQL *mysql);
 
 /////////////////////////////
-/// Variáveis globais X<( ///
+/// Varióveis globais X<( ///
 /////////////////////////////
 
 /**
- * Contém a conexão com o banco de dados
+ * Contem a conexao com o banco de dados
  */
 MYSQL *connexao;
 bool conectado = false;
@@ -46,7 +46,7 @@ const unsigned int EDITAR_COMPROMISSO = 3;
 const unsigned int SAIR = 4;
 
 /**
- * Função principal
+ * Funcao principal
  */
 int main(int argc, char **argv) {
 
@@ -57,17 +57,17 @@ int main(int argc, char **argv) {
 
 	exibeMenu();
 
-	// Guarda a opção escolhida
+	// Guarda a opóóo escolhida
 	int opcao;
 
 	// Entra em um loop infinito perguntando
-	// o que o usuário deseja fazer
+	// o que o usuario deseja fazer
 	while (continuarExecutando) {
 
-		// Pergunta a opção do usuário
+		// Pergunta a opcao do usuario
 		std::cin >> opcao;
 
-		// Executa a ação escolhida
+		// Executa a opcao escolhida
 		switch (opcao) {
 			case ADICIONAR_COMPROMISSO:
 				adicionarCompromisso();
@@ -92,7 +92,7 @@ int main(int argc, char **argv) {
 		}
 	}
 
-	std::cout << "Saindo... Até a próxima!" << std::endl;
+	std::cout << "Saindo... Ate a proxima!" << std::endl;
 	desconectar();
 	return 0;
 }
@@ -100,7 +100,7 @@ int main(int argc, char **argv) {
 void removerCompromisso() {
 	std::cout << "Escolha um código de compromisso para remover:" << std::endl;
 	verCompromissos();
-	std::cout << "Código:"
+	std::cout << "Código:";
 
 	int codCompromisso;
 	std::cin >> codCompromisso;
@@ -124,7 +124,7 @@ void removerCompromisso() {
 }
 
 /**
- * Exibe um menu para o usuário
+ * Exibe um menu para o usuório
  */
 void exibeMenu() {
 	std::cout << "Escolha uma opção:" << std::endl;
@@ -136,7 +136,7 @@ void exibeMenu() {
 }
 
 /**
- * Mostra os erros que podem ocorrer na conexão
+ * Mostra os erros que podem ocorrer na conexóo
  * @param mysql
  */
 void mostrarErroDoMysql(MYSQL *mysql) {
@@ -178,7 +178,7 @@ void desconectar() {
  */
 void adicionarCompromisso() {
 
-	// Verifica se a conexÃ£o foi realizada com sucesso
+	// Verifica se a conexao foi realizada com sucesso
 	if (!conectar()) {
 		std::cout << "Falha ao conectar ao banco de dados!" << std::endl;
 		return;
@@ -191,8 +191,8 @@ void adicionarCompromisso() {
 	std::cout << "Informe o dia:";
 	std::cin >> dia;
 
-	// Solicita o mês do compromisso
-	std::cout << "Informe o mês:";
+	// Solicita o mós do compromisso
+	std::cout << "Informe o mós:";
 	std::cin >> mes;
 
 	// Solicita o ano do compromisso
@@ -200,10 +200,10 @@ void adicionarCompromisso() {
 	std::cin >> ano;
 
 	// Limpa a memória de qualquer caractere restante
-	// Se isso não for feito getline não funciona
+	// Se isso nóo for feito getline nóo funciona
 	std::cin.ignore();
 
-	// Solicita a descrição do compromisso
+	// Solicita a descricao do compromisso
 	std::cout << "Descreva o compromisso:";
 	std::getline(std::cin, descricao);
 
@@ -227,7 +227,7 @@ void adicionarCompromisso() {
 
 void verCompromissos() {
 
-	// Verifica se a conexão foi realizada com sucesso
+	// Verifica se a conexóo foi realizada com sucesso
 	if (!conectar()) {
 		std::cout << "Falha ao conectar ao banco de dados!" << std::endl;
 		return;
