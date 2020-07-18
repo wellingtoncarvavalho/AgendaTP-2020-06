@@ -10,15 +10,15 @@
 #ifdef __WIN32
 	#include <mysql.h>
 #else
-	// Em outros sistemas, creio eu,
-	// é desse outro jeito
-	#include <mysql/mysql.h>
+// Em outros sistemas, creio eu,
+// é desse outro jeito
+#include <mysql/mysql.h>
 #endif
 
 ///////////////////
 /// Protótipos ////
 ///////////////////
-void exibeMenu(); 
+void exibeMenu();
 void desconectar();
 void verCompromissos();
 void mostrarErroDoMysql();
@@ -166,9 +166,13 @@ void adicionarCompromisso() {
 	std::cout << "Informe o ano:";
 	std::cin >> ano;
 
+	// Limpa a memória de qualquer caractere restante
+	// Se isso não for feito getline não funciona
+	std::cin.ignore();
+
 	// Solicita a descrição do compromisso
 	std::cout << "Descreva o compromisso:";
-	std::cin >> descricao;
+	std::getline(std::cin, descricao);
 
 	// Monta a query
 	std::string sql = "insert into Compromisso (data, descricao)values('" + ano + "-" + mes + "-" + dia + "','" + descricao + "')";
