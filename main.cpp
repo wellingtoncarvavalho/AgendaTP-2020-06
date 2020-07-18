@@ -18,9 +18,11 @@
 ///////////////////
 /// Protótipos ////
 ///////////////////
+bool conectar();
 void exibeMenu();
 void desconectar();
 void verCompromissos();
+void editarCompromisso();
 void removerCompromisso();
 void adicionarCompromisso();
 void mostrarErroDoMysql(MYSQL *mysql);
@@ -79,8 +81,7 @@ int main(int argc, char **argv) {
 				verCompromissos();
 				break;
 			case EDITAR_COMPROMISSO:
-				// TODO implementar
-				std::cout << "Falta implementar." << std::endl;
+				editarCompromisso();
 				break;
 			case SAIR:
 				continuarExecutando = false;
@@ -97,6 +98,60 @@ int main(int argc, char **argv) {
 	return 0;
 }
 
+void editarCompromisso() {
+	// Verifica se a conexao foi realizada com sucesso
+	if (!conectar()) {
+		std::cout << "Falha ao conectar ao banco de dados!" << std::endl;
+		return;
+	}
+
+	std::cout << "Escolha um código de compromisso para editar:" << std::endl;
+	verCompromissos();
+	std::cout << "Código:";
+
+	int codCompromisso;
+	std::cin >> codCompromisso;
+
+	// Variaveis usadas para montar o query
+	std::string dia, mes, ano, descricao;
+
+	// Solicita o dia do compromisso
+	std::cout << "Informe o dia:";
+	std::cin >> dia;
+
+	// Solicita o mós do compromisso
+	std::cout << "Informe o mês:";
+	std::cin >> mes;
+
+	// Solicita o ano do compromisso
+	std::cout << "Informe o ano:";
+	std::cin >> ano;
+
+	// Limpa a memória de qualquer caractere restante
+	// Se isso nóo for feito getline nóo funciona
+	std::cin.ignore();
+
+	// Solicita a descricao do compromisso
+	std::cout << "Descreva o compromisso:";
+	std::getline(std::cin, descricao);
+
+	// Monta a query
+	std::string sql = "update Compromisso set data='" + ano + "-" + mes + "-" + dia + "', descricao='" + descricao + "' where cod=" + std::to_string(codCompromisso);
+
+	// Executa a query
+	int statusDeExecucao = mysql_query(connexao, sql.data());
+
+	// Verifica se deu tudo certo
+	if (statusDeExecucao == 0) {
+		// Deu certo!
+		std::cout << "Compromisso atualizado" << std::endl;
+	} else {
+		// Algo deu errado!
+		mostrarErroDoMysql(connexao);
+		std::cout << "Falha ao atualizar compromisso!" << std::endl;
+	}
+
+}
 void removerCompromisso() {
 	std::cout << "Escolha um código de compromisso para remover:" << std::endl;
 	verCompromissos();
