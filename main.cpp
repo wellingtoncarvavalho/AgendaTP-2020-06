@@ -52,6 +52,8 @@ int main(int argc, char **argv) {
 	// Exibe a mensagem de boas vindas
 	std::cout << "Boas vindas da agenda!" << std::endl;
 
+	bool continuarExecutando = true;
+
 	exibeMenu();
 
 	// Guarda a opção escolhida
@@ -59,7 +61,7 @@ int main(int argc, char **argv) {
 
 	// Entra em um loop infinito perguntando
 	// o que o usuário deseja fazer
-	while (true) {
+	while (continuarExecutando) {
 
 		// Pergunta a opção do usuário
 		std::cin >> opcao;
@@ -80,12 +82,18 @@ int main(int argc, char **argv) {
 				// TODO implementar
 				std::cout << "Falta implementar." << std::endl;
 				break;
+			case SAIR:
+				continuarExecutando = false;
 		}
 
 		// Exibe o menu novamente
-		exibeMenu();
+		if (continuarExecutando) {
+			exibeMenu();
+
+		}
 	}
 
+	std::cout << "Saindo... Até a próxima!" << std::endl;
 	desconectar();
 	return 0;
 }
